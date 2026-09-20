@@ -1,5 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { 
+  getAuth, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signOut 
+} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -14,7 +19,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Export instances for auth and database
+// Initialize Auth & Firestore
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// Authentication helper functions
+export const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password);
+export const signUp = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+export const logOut = () => signOut(auth);
+
 export default app;
